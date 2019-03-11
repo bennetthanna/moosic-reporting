@@ -24,8 +24,7 @@ function receiveMessages(parameters) {
     return sqs.receiveMessage(params).promise()
         .then(res => {
             if (res.Messages) {
-                console.log('Received message(s)');
-                console.log(res.Messages);
+                res.Messages.forEach(message => console.log(message.Body));
                 const deleteParams = {
                   QueueUrl: SQS_QUEUE_URL,
                   ReceiptHandle: res.Messages[0].ReceiptHandle
